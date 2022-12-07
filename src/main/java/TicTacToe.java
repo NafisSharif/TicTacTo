@@ -3,9 +3,25 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 
 public class TicTacToe extends JComponent {
+    public static final int FIELD_EMPTY = 0; //пустое поле
+    public static final int FIELD_X = 10; //поле с крестиком
+    public static final int FIELD_0 = 200; //поле с ноликом
+    int[][] field; //обьявляем наш массив игрового поля
+    boolean isXturn;
 
     public TicTacToe(){
         enableEvents(AWTEvent.MOUSE_EVENT_MASK);
+        field = new int[3][3]; //выделяе память под масси при создании компонента
+        inintGame();
+    }
+
+    public void inintGame(){
+        for (int i = 0; i < 3; ++i) {
+            for (int j = 0; j < 3; ++j) {
+                field[i][j] = FIELD_EMPTY; // очищаем массив, заполняя его в
+            }
+        }
+        isXturn = true;
     }
 
     @Override
