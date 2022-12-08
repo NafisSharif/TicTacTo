@@ -27,8 +27,41 @@ public class TicTacToe extends JComponent {
     @Override
     protected void processMouseEvent(MouseEvent mouseEvent){
         super.processMouseEvent(mouseEvent);
+        if(mouseEvent.getButton() == MouseEvent.BUTTON1){ // проверяем что нажата левая клавиша
+            int x = mouseEvent.getX(); // координата x клика
+            int y = mouseEvent.getY(); // координата y клика
+            // переводим координаты в индексы ячейки в массиве field
+            int i = (int) ((float) x / getWidth() * 3);
+            int j = (int) ((float) y / getHeight() * 3);
+            //проверяем, что выбранная ячейка пуста и туда можно сходить
+            if (field[i][j] == FIELD_EMPTY) {
+                //проверка чей ход, если X - ставим крестик, если 0 - ставим нолик
+                field[i][j] = isXturn?FIELD_X:FIELD_0;
+                isXturn = !isXturn; // меняем флаг хода.
+                repaint(); // перерисовка компонента, это вызовет метод paintComponent()
+            }
+        }
     }
 
+    void drawX(int i, int j, Graphics graphics) {
+        graphics.setColor(Color.BLACK);
+        int dw = getWidth() / 3;
+        int dh =getHeight() / 3;
+        int x = i * dw;
+        int y = j * dh;
+        //линия от верхнего левого угла в правый нижний
+        graphics.drawLine(x,y,x + dw, y + dh);
+        //линия от левого нижнего угла до правого верхнего
+        graphics.drawLine(x,y + dh, x + dw, y);
+    }
+
+    void draw0(int i, int j, Graphics graphics) {
+        graphics.setColor(Color.BLACK);
+        int dw = getWidth() / 3;
+        int dh = getHeight() /3;
+        int x = i + dw;
+        int y = j + dh;
+    }
 
     @Override
     protected void paintComponent(Graphics graphics){
